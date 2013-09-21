@@ -32,6 +32,22 @@ namespace TicTacToe
 
             Assert.That(game.PlayerOnSquare(1, 1), Is.EqualTo(naughts));
         }
+
+        [Test]
+        public void PlayersAlternateTurns()
+        {
+            var naughts = new PlayerStub();
+            naughts.NextTurn = () => new Point(1, 1);
+
+            var crosses = new PlayerStub();
+            crosses.NextTurn = () => new Point(2, 2);
+
+            var game = new TicTacToeGame(naughts, crosses);
+            game.PlayTurn();
+            game.PlayTurn();
+
+            Assert.That(game.PlayerOnSquare(2, 2), Is.EqualTo(crosses));
+        }
     }
 
     public class PlayerStub : ITicTacToePlayer
@@ -48,13 +64,16 @@ namespace TicTacToe
     {
         private readonly ITicTacToePlayer _naughts;
         private readonly ITicTacToePlayer _crosses;
+        private ITicTacToePlayer _currentPlayer;
         private TicTacToeBoard _board;
 
         public TicTacToeGame(ITicTacToePlayer naughts, ITicTacToePlayer crosses)
         {
             _naughts = naughts;
             _crosses = crosses;
-            _board = new TicTacToeBoard(); 
+            _board = new TicTacToeBoard();
+
+            _currentPlayer = _naughts;
         }
 
         public bool IsFinished()
@@ -64,8 +83,10 @@ namespace TicTacToe
 
         public void PlayTurn()
         {
-            var position = _naughts.PlayTurn();
-            _board.PlaySquare(position, _naughts);
+            var position = _currentPlayer.PlayTurn();
+            _board.PlaySquare(position, _currentPlayer);
+
+            _currentPlayer = _currentPlayer == _naughts ? _crosses : _naughts;
         }
 
         public ITicTacToePlayer Winner
