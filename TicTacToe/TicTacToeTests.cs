@@ -48,6 +48,30 @@ namespace TicTacToe
 
             Assert.That(game.PlayerOnSquare(2, 2), Is.EqualTo(crosses));
         }
+
+        [Test]
+        public void OnlyOnePlayerCanClaimEachSquare()
+        {
+            var naughts = new PlayerStub();
+            var crosses = new PlayerStub();
+            var game = new TicTacToeGame(naughts, crosses);
+
+            naughts.NextTurn = () => new Point(1, 1);
+            game.PlayTurn();
+
+            crosses.NextTurn = () => new Point(1, 1);
+            game.PlayTurn();
+
+            Assert.That(game.PlayerOnSquare(1, 1), Is.EqualTo(naughts));
+        }
+    }
+
+    public class SquareAlreadyTakenException : Exception
+    {
+        public SquareAlreadyTakenException(int x, int y) : 
+            base(string.Format("Can not play square {0},{1}. It is already taken", x, y))
+        {
+        }
     }
 
     public class PlayerStub : ITicTacToePlayer
@@ -83,10 +107,12 @@ namespace TicTacToe
 
         public void PlayTurn()
         {
-            var position = _currentPlayer.PlayTurn();
-            _board.PlaySquare(position, _currentPlayer);
-
-            _currentPlayer = _currentPlayer == _naughts ? _crosses : _naughts;
+            Point position = _currentPlayer.PlayTurn();
+            if(_board.GetPlayer(position) == null)
+            {
+                _board.PlaySquare(position, _currentPlayer);
+                _currentPlayer = _currentPlayer == _naughts ? _crosses : _naughts;
+            }
         }
 
         public ITicTacToePlayer Winner
@@ -109,9 +135,13 @@ namespace TicTacToe
             _board.Add(position, player);
         }
 
+
+
         public ITicTacToePlayer GetPlayer(Point position)
         {
-            return _board[position];
+            if(_board.ContainsKey(position))
+                return _board[position];
+            return null;
         }
     }
 
