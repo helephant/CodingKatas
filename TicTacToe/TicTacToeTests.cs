@@ -64,13 +64,24 @@ namespace TicTacToe
 
             Assert.That(game.PlayerOnSquare(1, 1), Is.EqualTo(naughts));
         }
-    }
 
-    public class SquareAlreadyTakenException : Exception
-    {
-        public SquareAlreadyTakenException(int x, int y) : 
-            base(string.Format("Can not play square {0},{1}. It is already taken", x, y))
+        [Test]
+        public void PlayersTurnIsNotOverUntilTheyMakeAValidMove()
         {
+            var naughts = new PlayerStub();
+            var crosses = new PlayerStub();
+            var game = new TicTacToeGame(naughts, crosses);
+
+            naughts.NextTurn = () => new Point(1, 1);
+            game.PlayTurn();
+
+            crosses.NextTurn = () => new Point(1, 1);
+            game.PlayTurn();
+
+            crosses.NextTurn = () => new Point(2, 2);
+            game.PlayTurn();
+
+            Assert.That(game.PlayerOnSquare(2, 2), Is.EqualTo(crosses));
         }
     }
 
