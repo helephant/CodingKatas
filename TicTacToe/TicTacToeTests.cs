@@ -176,6 +176,44 @@ namespace TicTacToe
             Assert.That(game.IsFinished());
             Assert.That(game.Winner, Is.EqualTo(naughts));
         }
+
+        [Test]
+        public void WhenBoardIsFullButNobodyHasWonPlayersDraw()
+        {
+            var naughts = new PlayerStub();
+            var crosses = new PlayerStub();
+            var game = new TicTacToeGame(naughts, crosses);
+
+            naughts.NextTurn = () => new Point(1, 1);
+            game.PlayTurn();
+
+            crosses.NextTurn = () => new Point(1, 2);
+            game.PlayTurn();
+
+            naughts.NextTurn = () => new Point(1, 3);
+            game.PlayTurn();
+
+            crosses.NextTurn = () => new Point(2, 2);
+            game.PlayTurn();
+
+            naughts.NextTurn = () => new Point(2, 1);
+            game.PlayTurn();
+
+            crosses.NextTurn = () => new Point(2, 3);
+            game.PlayTurn();
+
+            naughts.NextTurn = () => new Point(3, 2);
+            game.PlayTurn();
+
+            crosses.NextTurn = () => new Point(3, 1);
+            game.PlayTurn();
+
+            naughts.NextTurn = () => new Point(3, 3);
+            game.PlayTurn();
+
+            Assert.That(game.IsFinished());
+            Assert.That(game.Winner, Is.EqualTo(null));
+        }
     }
 
     public class PlayerStub : ITicTacToePlayer
