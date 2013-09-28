@@ -14,7 +14,7 @@ namespace TicTacToe
         public void NaughtsStartsTheGame()
         {
             var naughts = new PlayerStub();
-            naughts.NextTurn = () => new Point(1, 1);
+            naughts.NextTurn = () => new BoardPosition(1, 1);
 
             var game = new TicTacToeGame(naughts, null);
             game.PlayTurn();
@@ -26,10 +26,10 @@ namespace TicTacToe
         public void PlayersAlternateTurns()
         {
             var naughts = new PlayerStub();
-            naughts.NextTurn = () => new Point(1, 1);
+            naughts.NextTurn = () => new BoardPosition(1, 1);
 
             var crosses = new PlayerStub();
-            crosses.NextTurn = () => new Point(2, 2);
+            crosses.NextTurn = () => new BoardPosition(2, 2);
 
             var game = new TicTacToeGame(naughts, crosses);
             game.PlayTurn();
@@ -45,10 +45,10 @@ namespace TicTacToe
             var crosses = new PlayerStub();
             var game = new TicTacToeGame(naughts, crosses);
 
-            naughts.NextTurn = () => new Point(1, 1);
+            naughts.NextTurn = () => new BoardPosition(1, 1);
             game.PlayTurn();
 
-            crosses.NextTurn = () => new Point(1, 1);
+            crosses.NextTurn = () => new BoardPosition(1, 1);
             game.PlayTurn();
 
             Assert.That(game.PlayerOnSquare(1, 1), Is.EqualTo(naughts));
@@ -61,13 +61,13 @@ namespace TicTacToe
             var crosses = new PlayerStub();
             var game = new TicTacToeGame(naughts, crosses);
 
-            naughts.NextTurn = () => new Point(1, 1);
+            naughts.NextTurn = () => new BoardPosition(1, 1);
             game.PlayTurn();
 
-            crosses.NextTurn = () => new Point(1, 1);
+            crosses.NextTurn = () => new BoardPosition(1, 1);
             game.PlayTurn();
 
-            crosses.NextTurn = () => new Point(2, 2);
+            crosses.NextTurn = () => new BoardPosition(2, 2);
             game.PlayTurn();
 
             Assert.That(game.PlayerOnSquare(1, 1), Is.EqualTo(naughts));
@@ -81,19 +81,19 @@ namespace TicTacToe
             var crosses = new PlayerStub();
             var game = new TicTacToeGame(naughts, crosses);
 
-            naughts.NextTurn = () => new Point(1, 1);
+            naughts.NextTurn = () => new BoardPosition(1, 1);
             game.PlayTurn();
 
-            crosses.NextTurn = () => new Point(2, 1);
+            crosses.NextTurn = () => new BoardPosition(2, 1);
             game.PlayTurn();
 
-            naughts.NextTurn = () => new Point(1, 2);
+            naughts.NextTurn = () => new BoardPosition(1, 2);
             game.PlayTurn();
 
-            crosses.NextTurn = () => new Point(2, 2);
+            crosses.NextTurn = () => new BoardPosition(2, 2);
             game.PlayTurn();
 
-            naughts.NextTurn = () => new Point(1, 3);
+            naughts.NextTurn = () => new BoardPosition(1, 3);
             game.PlayTurn();
 
             Assert.That(game.IsFinished());
@@ -107,19 +107,19 @@ namespace TicTacToe
             var crosses = new PlayerStub();
             var game = new TicTacToeGame(naughts, crosses);
 
-            naughts.NextTurn = () => new Point(1, 2);
+            naughts.NextTurn = () => new BoardPosition(1, 2);
             game.PlayTurn();
 
-            crosses.NextTurn = () => new Point(1, 1);
+            crosses.NextTurn = () => new BoardPosition(1, 1);
             game.PlayTurn();
 
-            naughts.NextTurn = () => new Point(2, 2);
+            naughts.NextTurn = () => new BoardPosition(2, 2);
             game.PlayTurn();
 
-            crosses.NextTurn = () => new Point(2, 1);
+            crosses.NextTurn = () => new BoardPosition(2, 1);
             game.PlayTurn();
 
-            naughts.NextTurn = () => new Point(3, 2);
+            naughts.NextTurn = () => new BoardPosition(3, 2);
             game.PlayTurn();
 
             Assert.That(game.IsFinished());
@@ -133,19 +133,19 @@ namespace TicTacToe
             var crosses = new PlayerStub();
             var game = new TicTacToeGame(naughts, crosses);
 
-            naughts.NextTurn = () => new Point(1, 1);
+            naughts.NextTurn = () => new BoardPosition(1, 1);
             game.PlayTurn();
 
-            crosses.NextTurn = () => new Point(1, 2);
+            crosses.NextTurn = () => new BoardPosition(1, 2);
             game.PlayTurn();
 
-            naughts.NextTurn = () => new Point(2, 2);
+            naughts.NextTurn = () => new BoardPosition(2, 2);
             game.PlayTurn();
 
-            crosses.NextTurn = () => new Point(3, 2);
+            crosses.NextTurn = () => new BoardPosition(3, 2);
             game.PlayTurn();
 
-            naughts.NextTurn = () => new Point(3, 3);
+            naughts.NextTurn = () => new BoardPosition(3, 3);
             game.PlayTurn();
 
             Assert.That(game.IsFinished());
@@ -159,19 +159,19 @@ namespace TicTacToe
             var crosses = new PlayerStub();
             var game = new TicTacToeGame(naughts, crosses);
 
-            naughts.NextTurn = () => new Point(1, 3);
+            naughts.NextTurn = () => new BoardPosition(1, 3);
             game.PlayTurn();
 
-            crosses.NextTurn = () => new Point(1, 2);
+            crosses.NextTurn = () => new BoardPosition(1, 2);
             game.PlayTurn();
 
-            naughts.NextTurn = () => new Point(2, 2);
+            naughts.NextTurn = () => new BoardPosition(2, 2);
             game.PlayTurn();
 
-            crosses.NextTurn = () => new Point(3, 2);
+            crosses.NextTurn = () => new BoardPosition(3, 2);
             game.PlayTurn();
 
-            naughts.NextTurn = () => new Point(3, 1);
+            naughts.NextTurn = () => new BoardPosition(3, 1);
             game.PlayTurn();
 
             Assert.That(game.IsFinished());
@@ -185,31 +185,31 @@ namespace TicTacToe
             var crosses = new PlayerStub();
             var game = new TicTacToeGame(naughts, crosses);
 
-            naughts.NextTurn = () => new Point(1, 1);
+            naughts.NextTurn = () => new BoardPosition(1, 1);
             game.PlayTurn();
 
-            crosses.NextTurn = () => new Point(1, 2);
+            crosses.NextTurn = () => new BoardPosition(1, 2);
             game.PlayTurn();
 
-            naughts.NextTurn = () => new Point(1, 3);
+            naughts.NextTurn = () => new BoardPosition(1, 3);
             game.PlayTurn();
 
-            crosses.NextTurn = () => new Point(2, 2);
+            crosses.NextTurn = () => new BoardPosition(2, 2);
             game.PlayTurn();
 
-            naughts.NextTurn = () => new Point(2, 1);
+            naughts.NextTurn = () => new BoardPosition(2, 1);
             game.PlayTurn();
 
-            crosses.NextTurn = () => new Point(2, 3);
+            crosses.NextTurn = () => new BoardPosition(2, 3);
             game.PlayTurn();
 
-            naughts.NextTurn = () => new Point(3, 2);
+            naughts.NextTurn = () => new BoardPosition(3, 2);
             game.PlayTurn();
 
-            crosses.NextTurn = () => new Point(3, 1);
+            crosses.NextTurn = () => new BoardPosition(3, 1);
             game.PlayTurn();
 
-            naughts.NextTurn = () => new Point(3, 3);
+            naughts.NextTurn = () => new BoardPosition(3, 3);
             game.PlayTurn();
 
             Assert.That(game.IsFinished());
@@ -223,22 +223,22 @@ namespace TicTacToe
             var crosses = new PlayerStub();
             var game = new TicTacToeGame(naughts, crosses);
 
-            naughts.NextTurn = () => new Point(1, 1);
+            naughts.NextTurn = () => new BoardPosition(1, 1);
             game.PlayTurn();
 
-            crosses.NextTurn = () => new Point(2, 1);
+            crosses.NextTurn = () => new BoardPosition(2, 1);
             game.PlayTurn();
 
-            naughts.NextTurn = () => new Point(1, 2);
+            naughts.NextTurn = () => new BoardPosition(1, 2);
             game.PlayTurn();
 
-            crosses.NextTurn = () => new Point(2, 2);
+            crosses.NextTurn = () => new BoardPosition(2, 2);
             game.PlayTurn();
 
-            naughts.NextTurn = () => new Point(1, 3);
+            naughts.NextTurn = () => new BoardPosition(1, 3);
             game.PlayTurn();
 
-            crosses.NextTurn = () => new Point(2, 3);
+            crosses.NextTurn = () => new BoardPosition(2, 3);
             Assert.Throws<TicTacToeGameOverException>(() => game.PlayTurn());
             Assert.That(game.IsFinished());
             Assert.That(game.Winner, Is.EqualTo(naughts));
@@ -247,12 +247,12 @@ namespace TicTacToe
 
     public class PlayerStub : ITicTacToePlayer
     {
-        public Point PlayTurn()
+        public BoardPosition PlayTurn()
         {
             return NextTurn();
         }
 
-        public Func<Point> NextTurn { get; set; }
+        public Func<BoardPosition> NextTurn { get; set; }
     }
 
     public class TicTacToeGame
@@ -281,7 +281,7 @@ namespace TicTacToe
             if(IsFinished())
                 throw new TicTacToeGameOverException();
 
-            Point position = _currentPlayer.PlayTurn();
+            BoardPosition position = _currentPlayer.PlayTurn();
             if(_board.GetPlayerAtPosition(position) == null)
             {
                 _board.PlaySquare(position, _currentPlayer);
@@ -294,21 +294,21 @@ namespace TicTacToe
             get { return _board.Winner; }
         }
 
-        public ITicTacToePlayer PlayerOnSquare(int x, int y)
+        public ITicTacToePlayer PlayerOnSquare(int row, int column)
         {
-            return _board.GetPlayerAtPosition(new Point(x, y));
+            return _board.GetPlayerAtPosition(new BoardPosition(row, column));
         }
     }
 
     internal class TicTacToeBoard : IEnumerable<ITicTacToePlayer>
     {
-        private readonly Point _topLeft = new Point(1, 1);
-        private readonly Point _bottomRight = new Point(3, 3);
+        private readonly BoardPosition _topLeft = new BoardPosition(1, 1);
+        private readonly BoardPosition _bottomRight = new BoardPosition(3, 3);
 
-        private readonly Dictionary<Point, ITicTacToePlayer> _board = new Dictionary<Point, ITicTacToePlayer>();
+        private readonly Dictionary<BoardPosition, ITicTacToePlayer> _board = new Dictionary<BoardPosition, ITicTacToePlayer>();
         private ITicTacToePlayer _winner;
 
-        public void PlaySquare(Point position, ITicTacToePlayer player)
+        public void PlaySquare(BoardPosition position, ITicTacToePlayer player)
         {
             _board.Add(position, player);
 
@@ -326,10 +326,10 @@ namespace TicTacToe
 
         public ITicTacToePlayer GetPlayerAtPosition(int row, int column)
         {
-            return GetPlayerAtPosition(new Point(row, column));
+            return GetPlayerAtPosition(new BoardPosition(row, column));
         }
 
-        public ITicTacToePlayer GetPlayerAtPosition(Point position)
+        public ITicTacToePlayer GetPlayerAtPosition(BoardPosition position)
         {
             return _board.ContainsKey(position) ? _board[position] : null;
         }
@@ -355,9 +355,9 @@ namespace TicTacToe
 
         public IEnumerator<ITicTacToePlayer> GetEnumerator()
         {
-            for (var x = _topLeft.X; x <= _bottomRight.X; x++)
+            for (var y = _topLeft.Row; y <= _bottomRight.Row; y++)
             {
-                for (var y = _topLeft.Y; y <= _bottomRight.Y; y++)
+                for (var x = _topLeft.Column; x <= _bottomRight.Column; x++)
                 {
                     yield return GetPlayerAtPosition(x, y);
                 }
@@ -368,6 +368,43 @@ namespace TicTacToe
         {
             return GetEnumerator();
         }
+    }
+
+    public class BoardPosition : IEquatable<BoardPosition>
+    {
+        public int Row { get; set; }
+        public int Column { get; set; }
+
+        public BoardPosition(int row, int column)
+        {
+            Row = row;
+            Column = column;
+        }
+
+        #region equality 
+        public bool Equals(BoardPosition other)
+        {
+            if (ReferenceEquals(null, other)) return false;
+            if (ReferenceEquals(this, other)) return true;
+            return Row == other.Row && Column == other.Column;
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            if (obj.GetType() != this.GetType()) return false;
+            return Equals((BoardPosition) obj);
+        }
+
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                return (Row*397) ^ Column;
+            }
+        }
+        #endregion
     }
 
     internal class BinaryMaskWinEvaluator
@@ -413,6 +450,6 @@ namespace TicTacToe
 
     public interface ITicTacToePlayer
     {
-        Point PlayTurn();
+        BoardPosition PlayTurn();
     }
 }
