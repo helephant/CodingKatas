@@ -70,6 +70,7 @@ namespace TicTacToe
             crosses.NextTurn = () => new Point(2, 2);
             game.PlayTurn();
 
+            Assert.That(game.PlayerOnSquare(1, 1), Is.EqualTo(naughts));
             Assert.That(game.PlayerOnSquare(2, 2), Is.EqualTo(crosses));
         }
 
@@ -214,6 +215,34 @@ namespace TicTacToe
             Assert.That(game.IsFinished());
             Assert.That(game.Winner, Is.EqualTo(null));
         }
+
+        [Test]
+        public void WhenGameIsOverStopPlaying()
+        {
+            var naughts = new PlayerStub();
+            var crosses = new PlayerStub();
+            var game = new TicTacToeGame(naughts, crosses);
+
+            naughts.NextTurn = () => new Point(1, 1);
+            game.PlayTurn();
+
+            crosses.NextTurn = () => new Point(2, 1);
+            game.PlayTurn();
+
+            naughts.NextTurn = () => new Point(1, 2);
+            game.PlayTurn();
+
+            crosses.NextTurn = () => new Point(2, 2);
+            game.PlayTurn();
+
+            naughts.NextTurn = () => new Point(1, 3);
+            game.PlayTurn();
+
+            crosses.NextTurn = () => new Point(2, 3);
+            Assert.Throws<TicTacToeGameOverException>(() => game.PlayTurn());
+            Assert.That(game.IsFinished());
+            Assert.That(game.Winner, Is.EqualTo(naughts));
+        }
     }
 
     public class PlayerStub : ITicTacToePlayer
@@ -249,6 +278,9 @@ namespace TicTacToe
 
         public void PlayTurn()
         {
+            if(IsFinished())
+                throw new TicTacToeGameOverException();
+
             Point position = _currentPlayer.PlayTurn();
             if(_board.GetPlayerAtPosition(position) == null)
             {
