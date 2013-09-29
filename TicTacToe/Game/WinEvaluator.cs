@@ -1,6 +1,7 @@
 ﻿using System;
+using TicTacToe.Players;
 
-namespace TicTacToe
+namespace TicTacToe.Game
 {
     internal class WinEvaluator
     {

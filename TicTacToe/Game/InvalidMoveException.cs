@@ -1,4 +1,5 @@
 ﻿using System;
+using TicTacToe.Game;
 
 namespace TicTacToe
 {

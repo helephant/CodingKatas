@@ -1,10 +1,12 @@
 ﻿using System;
 using NUnit.Framework;
+using TicTacToe.Game;
+using TicTacToe.Players;
 
 namespace TicTacToe
 {
     [TestFixture]
-    public class TicTacToeTests
+    public class TicTacToeGameTests
     {
         private PlayerStub _naughts;
         private PlayerStub _crosses;
@@ -231,6 +233,8 @@ namespace TicTacToe
             Assert.That(_game.IsFinished);
             Assert.That(_game.Winner, Is.EqualTo(_naughts));
         }
+
+
     }
 
     public class PlayerStub : ITicTacToePlayer

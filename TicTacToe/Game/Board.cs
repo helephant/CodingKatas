@@ -1,7 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using TicTacToe.Players;
 
-namespace TicTacToe
+namespace TicTacToe.Game
 {
     internal class Board : IEnumerable<ITicTacToePlayer>
     {

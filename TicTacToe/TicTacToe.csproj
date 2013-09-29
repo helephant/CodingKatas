@@ -5,7 +5,7 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{60C040A1-2FF9-4223-9313-962AED84E7B6}</ProjectGuid>
-    <OutputType>Library</OutputType>
+    <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>TicTacToe</RootNamespace>
     <AssemblyName>TicTacToe</AssemblyName>
@@ -29,27 +29,27 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="nunit.framework">
       <HintPath>packages\NUnit.2.6.2\lib\nunit.framework.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="InvalidMoveException.cs" />
-    <Compile Include="WinEvaluator.cs" />
-    <Compile Include="BoardPosition.cs" />
-    <Compile Include="ITicTacToePlayer.cs" />
-    <Compile Include="Board.cs" />
-    <Compile Include="TicTacToeGame.cs" />
-    <Compile Include="GameOverException.cs" />
-    <Compile Include="TicTacToeTests.cs" />
+    <Compile Include="TicTacToeConsole.cs" />
+    <Compile Include="Game\InvalidMoveException.cs" />
+    <Compile Include="Players\RandomPlayer.cs" />
+    <Compile Include="Game\WinEvaluator.cs" />
+    <Compile Include="Game\BoardPosition.cs" />
+    <Compile Include="Players\ITicTacToePlayer.cs" />
+    <Compile Include="Game\Board.cs" />
+    <Compile Include="Game\TicTacToeGame.cs" />
+    <Compile Include="Game\GameOverException.cs" />
+    <Compile Include="Game\TicTacToeGameTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

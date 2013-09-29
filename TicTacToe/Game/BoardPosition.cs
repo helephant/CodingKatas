@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace TicTacToe
+namespace TicTacToe.Game
 {
     public class BoardPosition : IEquatable<BoardPosition>
     {
@@ -25,7 +25,7 @@ namespace TicTacToe
         {
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
-            if (obj.GetType() != this.GetType()) return false;
+            if (obj.GetType() != GetType()) return false;
             return Equals((BoardPosition) obj);
         }
 
