@@ -1,7 +1,6 @@
 ﻿using System;
-using TicTacToe.Game;
 
-namespace TicTacToe
+namespace TicTacToe.Game
 {
     public class InvalidMoveException : Exception
     {

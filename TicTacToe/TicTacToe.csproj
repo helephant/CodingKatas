@@ -40,8 +40,14 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="TicTacToeConsole.cs" />
+    <Compile Include="ConsoleApp\GameBoardPrinter.cs" />
+    <Compile Include="Tests\GameBoardPrinterTests.cs" />
+    <Compile Include="ConsoleApp\TicTacToeConsole.cs" />
     <Compile Include="Game\InvalidMoveException.cs" />
+    <Compile Include="Tests\Stubs\GameBuilder.cs" />
+    <Compile Include="Tests\Stubs\PrepopulatedPlayerStub.cs" />
+    <Compile Include="Tests\TicTacToeWinScenarioTests.cs" />
+    <Compile Include="Tests\Stubs\TurnByTurnPlayerStub.cs" />
     <Compile Include="Players\RandomPlayer.cs" />
     <Compile Include="Game\WinEvaluator.cs" />
     <Compile Include="Game\BoardPosition.cs" />
@@ -49,7 +55,7 @@
     <Compile Include="Game\Board.cs" />
     <Compile Include="Game\TicTacToeGame.cs" />
     <Compile Include="Game\GameOverException.cs" />
-    <Compile Include="Game\TicTacToeGameTests.cs" />
+    <Compile Include="Tests\TicTacToeGamePlayTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

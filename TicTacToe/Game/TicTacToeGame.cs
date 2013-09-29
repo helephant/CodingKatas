@@ -4,19 +4,22 @@ namespace TicTacToe.Game
 {
     public class TicTacToeGame
     {
-        private readonly ITicTacToePlayer _naughts;
-        private readonly ITicTacToePlayer _crosses;
-        private ITicTacToePlayer _winner;
         private ITicTacToePlayer _currentPlayer;
         private readonly Board _board;
 
         public TicTacToeGame(ITicTacToePlayer naughts, ITicTacToePlayer crosses)
         {
-            _naughts = naughts;
-            _crosses = crosses;
+            Naughts = naughts;
+            Crosses = crosses;
             _board = new Board();
 
-            _currentPlayer = _naughts;
+            _currentPlayer = Naughts;
+        }
+
+        public void Play()
+        {
+            while(!IsFinished)
+                PlayTurn();
         }
 
         public void PlayTurn()
@@ -31,9 +34,9 @@ namespace TicTacToe.Game
             {
                 _board[position] = _currentPlayer;
                 if (HasMadeWinningMove(_currentPlayer))
-                    _winner = _currentPlayer;
+                    Winner = _currentPlayer;
 
-                _currentPlayer = _currentPlayer == _naughts ? _crosses : _naughts;
+                _currentPlayer = _currentPlayer == Naughts ? Crosses : Naughts;
             }
         }
 
@@ -50,12 +53,13 @@ namespace TicTacToe.Game
 
         public bool IsFinished
         {
-            get { return _winner != null || _board.IsComplete; }
+            get { return Winner != null || _board.IsComplete; }
         }
 
-        public ITicTacToePlayer Winner 
-        {
-            get { return _winner; }
-        }
+        public ITicTacToePlayer Naughts { get; private set; }
+
+        public ITicTacToePlayer Crosses { get; set; }
+
+        public ITicTacToePlayer Winner { get; private set; }
     }
 }
