@@ -23,9 +23,9 @@
                 throw new GameOverException();
 
             BoardPosition position = _currentPlayer.PlayTurn();
-            if(_board.GetPlayerAtPosition(position) == null)
+            if(_board[position] == null)
             {
-                _board.PlaySquare(position, _currentPlayer);
+                _board[position] = _currentPlayer;
                 if (HasMadeWinningMove(_currentPlayer))
                     _winner = _currentPlayer;
 
@@ -35,7 +35,7 @@
 
         public ITicTacToePlayer PlayerOnSquare(int row, int column)
         {
-            return _board.GetPlayerAtPosition(new BoardPosition(row, column));
+            return _board[new BoardPosition(row, column)];
         }
 
         private bool HasMadeWinningMove(ITicTacToePlayer player)

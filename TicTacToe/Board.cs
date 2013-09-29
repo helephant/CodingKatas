@@ -10,22 +10,19 @@ namespace TicTacToe
 
         private readonly Dictionary<BoardPosition, ITicTacToePlayer> _board = new Dictionary<BoardPosition, ITicTacToePlayer>();
 
-        public void PlaySquare(BoardPosition position, ITicTacToePlayer player)
+        public ITicTacToePlayer this[BoardPosition position]
         {
-            if(IsInsideBounds(position))
-                throw new InvalidMoveException(position);
+            get
+            {
+                return _board.ContainsKey(position) ? _board[position] : null;
+            }
+            set
+            {
+                if (IsInsideBounds(position))
+                    throw new InvalidMoveException(position);
 
-            _board.Add(position, player);
-        }
-
-        public ITicTacToePlayer GetPlayerAtPosition(int row, int column)
-        {
-            return GetPlayerAtPosition(new BoardPosition(row, column));
-        }
-
-        public ITicTacToePlayer GetPlayerAtPosition(BoardPosition position)
-        {
-            return _board.ContainsKey(position) ? _board[position] : null;
+                _board.Add(position, value);
+            }
         }
 
         private bool IsInsideBounds(BoardPosition position)
@@ -36,11 +33,11 @@ namespace TicTacToe
 
         public IEnumerator<ITicTacToePlayer> GetEnumerator()
         {
-            for (var y = _topLeftBound.Row; y <= _bottomRightBound.Row; y++)
+            for (var row = _topLeftBound.Row; row <= _bottomRightBound.Row; row++)
             {
-                for (var x = _topLeftBound.Column; x <= _bottomRightBound.Column; x++)
+                for (var column = _topLeftBound.Column; column <= _bottomRightBound.Column; column++)
                 {
-                    yield return GetPlayerAtPosition(x, y);
+                    yield return this[new BoardPosition(row, column)];
                 }
             }
         }
