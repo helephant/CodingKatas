@@ -4,6 +4,7 @@
     {
         private readonly ITicTacToePlayer _naughts;
         private readonly ITicTacToePlayer _crosses;
+        private ITicTacToePlayer _winner;
         private ITicTacToePlayer _currentPlayer;
         private readonly Board _board;
 
@@ -16,32 +17,41 @@
             _currentPlayer = _naughts;
         }
 
-        public bool IsFinished()
-        {
-            return _board.IsComplete();
-        }
-
         public void PlayTurn()
         {
-            if(IsFinished())
-                throw new TicTacToeGameOverException();
+            if(IsFinished)
+                throw new GameOverException();
 
             BoardPosition position = _currentPlayer.PlayTurn();
             if(_board.GetPlayerAtPosition(position) == null)
             {
                 _board.PlaySquare(position, _currentPlayer);
+                if (HasMadeWinningMove(_currentPlayer))
+                    _winner = _currentPlayer;
+
                 _currentPlayer = _currentPlayer == _naughts ? _crosses : _naughts;
             }
-        }
-
-        public ITicTacToePlayer Winner
-        {
-            get { return _board.Winner; }
         }
 
         public ITicTacToePlayer PlayerOnSquare(int row, int column)
         {
             return _board.GetPlayerAtPosition(new BoardPosition(row, column));
+        }
+
+        private bool HasMadeWinningMove(ITicTacToePlayer player)
+        {
+            var winEvaluator = new WinEvaluator();
+            return winEvaluator.HasPlayerWon(player, _board);
+        }
+
+        public bool IsFinished
+        {
+            get { return _winner != null || _board.IsComplete; }
+        }
+
+        public ITicTacToePlayer Winner
+        {
+            get { return _winner; }
         }
     }
 }

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 
 namespace TicTacToe
 {
@@ -19,9 +18,9 @@ namespace TicTacToe
                 Convert.ToInt32("001010100",2)
             };
 
-        public bool HasPlayerWon(IEnumerable<bool> playersPositions)
+        public bool HasPlayerWon(ITicTacToePlayer currentPlayer, Board board)
         {
-            var playerMask = GetPositionMaskForPlayer(playersPositions);
+            var playerMask = GetPositionMaskForPlayer(currentPlayer, board);
             foreach (var win in _wins)
             {
                 if ((win & playerMask) == win)
@@ -30,13 +29,13 @@ namespace TicTacToe
             return false;
         }
 
-        private int GetPositionMaskForPlayer(IEnumerable<bool> playersPositions)
+        private int GetPositionMaskForPlayer(ITicTacToePlayer currentPlayer, Board board)
         {
             var positionMask = 0;
             var gridIndex = 1;
-            foreach (var hasPosition in playersPositions)
+            foreach (var playerOnPosition in board)
             {
-                if (hasPosition)
+                if (playerOnPosition == currentPlayer)
                     positionMask |= 1 << (9 - gridIndex);
                 gridIndex++;
             }

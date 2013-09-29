@@ -48,7 +48,7 @@
     <Compile Include="ITicTacToePlayer.cs" />
     <Compile Include="Board.cs" />
     <Compile Include="TicTacToeGame.cs" />
-    <Compile Include="TicTacToeGameOverException.cs" />
+    <Compile Include="GameOverException.cs" />
     <Compile Include="TicTacToeTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

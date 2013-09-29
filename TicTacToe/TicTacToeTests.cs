@@ -99,7 +99,7 @@ namespace TicTacToe
             _naughts.NextTurn = () => new BoardPosition(1, 3);
             _game.PlayTurn();
 
-            Assert.That(_game.IsFinished());
+            Assert.That(_game.IsFinished);
             Assert.That(_game.Winner, Is.EqualTo(_naughts));
         }
 
@@ -121,7 +121,7 @@ namespace TicTacToe
             _naughts.NextTurn = () => new BoardPosition(3, 2);
             _game.PlayTurn();
 
-            Assert.That(_game.IsFinished());
+            Assert.That(_game.IsFinished);
             Assert.That(_game.Winner, Is.EqualTo(_naughts));
         }
 
@@ -143,7 +143,7 @@ namespace TicTacToe
             _naughts.NextTurn = () => new BoardPosition(3, 3);
             _game.PlayTurn();
 
-            Assert.That(_game.IsFinished());
+            Assert.That(_game.IsFinished);
             Assert.That(_game.Winner, Is.EqualTo(_naughts));
         }
 
@@ -165,7 +165,7 @@ namespace TicTacToe
             _naughts.NextTurn = () => new BoardPosition(3, 1);
             _game.PlayTurn();
 
-            Assert.That(_game.IsFinished());
+            Assert.That(_game.IsFinished);
             Assert.That(_game.Winner, Is.EqualTo(_naughts));
         }
 
@@ -199,7 +199,7 @@ namespace TicTacToe
             _naughts.NextTurn = () => new BoardPosition(3, 3);
             _game.PlayTurn();
 
-            Assert.That(_game.IsFinished());
+            Assert.That(_game.IsFinished);
             Assert.That(_game.Winner, Is.EqualTo(null));
         }
 
@@ -222,8 +222,8 @@ namespace TicTacToe
             _game.PlayTurn();
 
             _crosses.NextTurn = () => new BoardPosition(2, 3);
-            Assert.Throws<TicTacToeGameOverException>(() => _game.PlayTurn());
-            Assert.That(_game.IsFinished());
+            Assert.Throws<GameOverException>(() => _game.PlayTurn());
+            Assert.That(_game.IsFinished);
             Assert.That(_game.Winner, Is.EqualTo(_naughts));
         }
     }
