@@ -40,6 +40,20 @@ namespace TicTacToe
         }
 
         [Test]
+        public void PlayersMustMoveWithinTheTopLeftBoundsOfTheBoard()
+        {
+            _naughts.NextTurn = () => new BoardPosition(0, 0);
+            Assert.Throws<InvalidMoveException>(() => _game.PlayTurn());
+        }
+
+        [Test]
+        public void PlayersMustMoveWithinTheBottomRightBoundsOfTheBoard()
+        {
+            _naughts.NextTurn = () => new BoardPosition(4, 4);
+            Assert.Throws<InvalidMoveException>(() =>_game.PlayTurn());
+        }
+
+        [Test]
         public void OnlyOnePlayerCanClaimEachSquare()
         {
             _naughts.NextTurn = () => new BoardPosition(1, 1);

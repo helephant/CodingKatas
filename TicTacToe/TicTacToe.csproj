@@ -42,6 +42,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="InvalidMoveException.cs" />
     <Compile Include="WinEvaluator.cs" />
     <Compile Include="BoardPosition.cs" />
     <Compile Include="ITicTacToePlayer.cs" />

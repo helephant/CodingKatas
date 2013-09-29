@@ -13,18 +13,12 @@ namespace TicTacToe
 
         public void PlaySquare(BoardPosition position, ITicTacToePlayer player)
         {
-            _board.Add(position, player);
+            if(IsInsideBounds(position))
+                throw new InvalidMoveException(position);
 
+            _board.Add(position, player);
             if (HasMadeWinningMove(player))
                 _winner = player;
-        }
-
-        private bool HasMadeWinningMove(ITicTacToePlayer player)
-        {
-            if (_board.Count < 5) return false;
-
-            var winEvaluator = new WinEvaluator();
-            return winEvaluator.HasPlayerWon(GetPositionsForPlayer(player));
         }
 
         public ITicTacToePlayer GetPlayerAtPosition(int row, int column)
@@ -46,7 +40,14 @@ namespace TicTacToe
         {
             return _winner != null || _board.Count >= 9;
         }
-       
+
+        private bool HasMadeWinningMove(ITicTacToePlayer player)
+        {
+            if (_board.Count < 5) return false;
+
+            var winEvaluator = new WinEvaluator();
+            return winEvaluator.HasPlayerWon(GetPositionsForPlayer(player));
+        }
 
         private IEnumerable<bool> GetPositionsForPlayer(ITicTacToePlayer currentPlayer)
         {
@@ -54,6 +55,12 @@ namespace TicTacToe
             {
                 yield return player == currentPlayer;
             }
+        }
+
+        private bool IsInsideBounds(BoardPosition position)
+        {
+            return position.Column < _topLeft.Column || position.Column > _bottomRight.Column ||
+                   position.Row < _topLeft.Row || position.Column > _bottomRight.Column;
         }
 
         public IEnumerator<ITicTacToePlayer> GetEnumerator()
