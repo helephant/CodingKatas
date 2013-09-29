@@ -42,10 +42,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BinaryMaskWinEvaluator.cs" />
+    <Compile Include="WinEvaluator.cs" />
     <Compile Include="BoardPosition.cs" />
     <Compile Include="ITicTacToePlayer.cs" />
-    <Compile Include="TicTacToeBoard.cs" />
+    <Compile Include="Board.cs" />
     <Compile Include="TicTacToeGame.cs" />
     <Compile Include="TicTacToeGameOverException.cs" />
     <Compile Include="TicTacToeTests.cs" />

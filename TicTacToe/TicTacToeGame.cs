@@ -5,13 +5,13 @@
         private readonly ITicTacToePlayer _naughts;
         private readonly ITicTacToePlayer _crosses;
         private ITicTacToePlayer _currentPlayer;
-        private readonly TicTacToeBoard _board;
+        private readonly Board _board;
 
         public TicTacToeGame(ITicTacToePlayer naughts, ITicTacToePlayer crosses)
         {
             _naughts = naughts;
             _crosses = crosses;
-            _board = new TicTacToeBoard();
+            _board = new Board();
 
             _currentPlayer = _naughts;
         }

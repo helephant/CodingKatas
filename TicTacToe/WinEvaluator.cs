@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace TicTacToe
 {
-    internal class BinaryMaskWinEvaluator
+    internal class WinEvaluator
     {
         private readonly int[] _wins = new[]
             {

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace TicTacToe
 {
-    internal class TicTacToeBoard : IEnumerable<ITicTacToePlayer>
+    internal class Board : IEnumerable<ITicTacToePlayer>
     {
         private readonly BoardPosition _topLeft = new BoardPosition(1, 1);
         private readonly BoardPosition _bottomRight = new BoardPosition(3, 3);
@@ -23,7 +23,7 @@ namespace TicTacToe
         {
             if (_board.Count < 5) return false;
 
-            var winEvaluator = new BinaryMaskWinEvaluator();
+            var winEvaluator = new WinEvaluator();
             return winEvaluator.HasPlayerWon(GetPositionsForPlayer(player));
         }
 

@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Drawing;
-using System.Linq;
 using NUnit.Framework;
 
 namespace TicTacToe
@@ -8,248 +6,233 @@ namespace TicTacToe
     [TestFixture]
     public class TicTacToeTests
     {
+        private PlayerStub _naughts;
+        private PlayerStub _crosses;
+        private TicTacToeGame _game;
+
+        [SetUp]
+        public void Setup()
+        {
+            _naughts = new PlayerStub("Naughts");
+            _crosses = new PlayerStub("Crosses");
+            _game = new TicTacToeGame(_naughts, _crosses);
+        }
+
         [Test]
         public void NaughtsStartsTheGame()
         {
-            var naughts = new PlayerStub();
-            naughts.NextTurn = () => new BoardPosition(1, 1);
+            _naughts.NextTurn = () => new BoardPosition(1, 1);
+            _game.PlayTurn();
 
-            var game = new TicTacToeGame(naughts, null);
-            game.PlayTurn();
-
-            Assert.That(game.PlayerOnSquare(1, 1), Is.EqualTo(naughts));
+            Assert.That(_game.PlayerOnSquare(1, 1), Is.EqualTo(_naughts));
         }
 
         [Test]
         public void PlayersAlternateTurns()
         {
-            var naughts = new PlayerStub();
-            naughts.NextTurn = () => new BoardPosition(1, 1);
+            _naughts.NextTurn = () => new BoardPosition(1, 1);
+            _game.PlayTurn();
 
-            var crosses = new PlayerStub();
-            crosses.NextTurn = () => new BoardPosition(2, 2);
+            _crosses.NextTurn = () => new BoardPosition(2, 2);
+            _game.PlayTurn();
 
-            var game = new TicTacToeGame(naughts, crosses);
-            game.PlayTurn();
-            game.PlayTurn();
-
-            Assert.That(game.PlayerOnSquare(2, 2), Is.EqualTo(crosses));
+            Assert.That(_game.PlayerOnSquare(2, 2), Is.EqualTo(_crosses));
         }
 
         [Test]
         public void OnlyOnePlayerCanClaimEachSquare()
         {
-            var naughts = new PlayerStub();
-            var crosses = new PlayerStub();
-            var game = new TicTacToeGame(naughts, crosses);
+            _naughts.NextTurn = () => new BoardPosition(1, 1);
+            _game.PlayTurn();
 
-            naughts.NextTurn = () => new BoardPosition(1, 1);
-            game.PlayTurn();
+            _crosses.NextTurn = () => new BoardPosition(1, 1);
+            _game.PlayTurn();
 
-            crosses.NextTurn = () => new BoardPosition(1, 1);
-            game.PlayTurn();
-
-            Assert.That(game.PlayerOnSquare(1, 1), Is.EqualTo(naughts));
+            Assert.That(_game.PlayerOnSquare(1, 1), Is.EqualTo(_naughts));
         }
 
         [Test]
         public void PlayersTurnIsNotOverUntilTheyMakeAValidMove()
         {
-            var naughts = new PlayerStub();
-            var crosses = new PlayerStub();
-            var game = new TicTacToeGame(naughts, crosses);
+            _naughts.NextTurn = () => new BoardPosition(1, 1);
+            _game.PlayTurn();
 
-            naughts.NextTurn = () => new BoardPosition(1, 1);
-            game.PlayTurn();
+            _crosses.NextTurn = () => new BoardPosition(1, 1);
+            _game.PlayTurn();
 
-            crosses.NextTurn = () => new BoardPosition(1, 1);
-            game.PlayTurn();
+            _crosses.NextTurn = () => new BoardPosition(2, 2);
+            _game.PlayTurn();
 
-            crosses.NextTurn = () => new BoardPosition(2, 2);
-            game.PlayTurn();
-
-            Assert.That(game.PlayerOnSquare(1, 1), Is.EqualTo(naughts));
-            Assert.That(game.PlayerOnSquare(2, 2), Is.EqualTo(crosses));
+            Assert.That(_game.PlayerOnSquare(1, 1), Is.EqualTo(_naughts));
+            Assert.That(_game.PlayerOnSquare(2, 2), Is.EqualTo(_crosses));
         }
 
         [Test]
         public void ThreeInAHorizontalRowWins()
         {
-            var naughts = new PlayerStub();
-            var crosses = new PlayerStub();
-            var game = new TicTacToeGame(naughts, crosses);
+            _naughts.NextTurn = () => new BoardPosition(1, 1);
+            _game.PlayTurn();
 
-            naughts.NextTurn = () => new BoardPosition(1, 1);
-            game.PlayTurn();
+            _crosses.NextTurn = () => new BoardPosition(2, 1);
+            _game.PlayTurn();
 
-            crosses.NextTurn = () => new BoardPosition(2, 1);
-            game.PlayTurn();
+            _naughts.NextTurn = () => new BoardPosition(1, 2);
+            _game.PlayTurn();
 
-            naughts.NextTurn = () => new BoardPosition(1, 2);
-            game.PlayTurn();
+            _crosses.NextTurn = () => new BoardPosition(2, 2);
+            _game.PlayTurn();
 
-            crosses.NextTurn = () => new BoardPosition(2, 2);
-            game.PlayTurn();
+            _naughts.NextTurn = () => new BoardPosition(1, 3);
+            _game.PlayTurn();
 
-            naughts.NextTurn = () => new BoardPosition(1, 3);
-            game.PlayTurn();
-
-            Assert.That(game.IsFinished());
-            Assert.That(game.Winner, Is.EqualTo(naughts));
+            Assert.That(_game.IsFinished());
+            Assert.That(_game.Winner, Is.EqualTo(_naughts));
         }
 
         [Test]
         public void ThreeInAVerticalColumnWins()
         {
-            var naughts = new PlayerStub();
-            var crosses = new PlayerStub();
-            var game = new TicTacToeGame(naughts, crosses);
+            _naughts.NextTurn = () => new BoardPosition(1, 2);
+            _game.PlayTurn();
 
-            naughts.NextTurn = () => new BoardPosition(1, 2);
-            game.PlayTurn();
+            _crosses.NextTurn = () => new BoardPosition(1, 1);
+            _game.PlayTurn();
 
-            crosses.NextTurn = () => new BoardPosition(1, 1);
-            game.PlayTurn();
+            _naughts.NextTurn = () => new BoardPosition(2, 2);
+            _game.PlayTurn();
 
-            naughts.NextTurn = () => new BoardPosition(2, 2);
-            game.PlayTurn();
+            _crosses.NextTurn = () => new BoardPosition(2, 1);
+            _game.PlayTurn();
 
-            crosses.NextTurn = () => new BoardPosition(2, 1);
-            game.PlayTurn();
+            _naughts.NextTurn = () => new BoardPosition(3, 2);
+            _game.PlayTurn();
 
-            naughts.NextTurn = () => new BoardPosition(3, 2);
-            game.PlayTurn();
-
-            Assert.That(game.IsFinished());
-            Assert.That(game.Winner, Is.EqualTo(naughts));
+            Assert.That(_game.IsFinished());
+            Assert.That(_game.Winner, Is.EqualTo(_naughts));
         }
 
         [Test]
         public void ThreeInALeftToRightDiagonalWins()
         {
-            var naughts = new PlayerStub();
-            var crosses = new PlayerStub();
-            var game = new TicTacToeGame(naughts, crosses);
+            _naughts.NextTurn = () => new BoardPosition(1, 1);
+            _game.PlayTurn();
 
-            naughts.NextTurn = () => new BoardPosition(1, 1);
-            game.PlayTurn();
+            _crosses.NextTurn = () => new BoardPosition(1, 2);
+            _game.PlayTurn();
 
-            crosses.NextTurn = () => new BoardPosition(1, 2);
-            game.PlayTurn();
+            _naughts.NextTurn = () => new BoardPosition(2, 2);
+            _game.PlayTurn();
 
-            naughts.NextTurn = () => new BoardPosition(2, 2);
-            game.PlayTurn();
+            _crosses.NextTurn = () => new BoardPosition(3, 2);
+            _game.PlayTurn();
 
-            crosses.NextTurn = () => new BoardPosition(3, 2);
-            game.PlayTurn();
+            _naughts.NextTurn = () => new BoardPosition(3, 3);
+            _game.PlayTurn();
 
-            naughts.NextTurn = () => new BoardPosition(3, 3);
-            game.PlayTurn();
-
-            Assert.That(game.IsFinished());
-            Assert.That(game.Winner, Is.EqualTo(naughts));
+            Assert.That(_game.IsFinished());
+            Assert.That(_game.Winner, Is.EqualTo(_naughts));
         }
 
         [Test]
         public void ThreeInARightToLeftDiagonalWins()
         {
-            var naughts = new PlayerStub();
-            var crosses = new PlayerStub();
-            var game = new TicTacToeGame(naughts, crosses);
+            _naughts.NextTurn = () => new BoardPosition(1, 3);
+            _game.PlayTurn();
 
-            naughts.NextTurn = () => new BoardPosition(1, 3);
-            game.PlayTurn();
+            _crosses.NextTurn = () => new BoardPosition(1, 2);
+            _game.PlayTurn();
 
-            crosses.NextTurn = () => new BoardPosition(1, 2);
-            game.PlayTurn();
+            _naughts.NextTurn = () => new BoardPosition(2, 2);
+            _game.PlayTurn();
 
-            naughts.NextTurn = () => new BoardPosition(2, 2);
-            game.PlayTurn();
+            _crosses.NextTurn = () => new BoardPosition(3, 2);
+            _game.PlayTurn();
 
-            crosses.NextTurn = () => new BoardPosition(3, 2);
-            game.PlayTurn();
+            _naughts.NextTurn = () => new BoardPosition(3, 1);
+            _game.PlayTurn();
 
-            naughts.NextTurn = () => new BoardPosition(3, 1);
-            game.PlayTurn();
-
-            Assert.That(game.IsFinished());
-            Assert.That(game.Winner, Is.EqualTo(naughts));
+            Assert.That(_game.IsFinished());
+            Assert.That(_game.Winner, Is.EqualTo(_naughts));
         }
 
         [Test]
         public void WhenBoardIsFullButNobodyHasWonPlayersDraw()
         {
-            var naughts = new PlayerStub();
-            var crosses = new PlayerStub();
-            var game = new TicTacToeGame(naughts, crosses);
+            _naughts.NextTurn = () => new BoardPosition(1, 1);
+            _game.PlayTurn();
 
-            naughts.NextTurn = () => new BoardPosition(1, 1);
-            game.PlayTurn();
+            _crosses.NextTurn = () => new BoardPosition(1, 2);
+            _game.PlayTurn();
 
-            crosses.NextTurn = () => new BoardPosition(1, 2);
-            game.PlayTurn();
+            _naughts.NextTurn = () => new BoardPosition(1, 3);
+            _game.PlayTurn();
 
-            naughts.NextTurn = () => new BoardPosition(1, 3);
-            game.PlayTurn();
+            _crosses.NextTurn = () => new BoardPosition(2, 2);
+            _game.PlayTurn();
 
-            crosses.NextTurn = () => new BoardPosition(2, 2);
-            game.PlayTurn();
+            _naughts.NextTurn = () => new BoardPosition(2, 1);
+            _game.PlayTurn();
 
-            naughts.NextTurn = () => new BoardPosition(2, 1);
-            game.PlayTurn();
+            _crosses.NextTurn = () => new BoardPosition(2, 3);
+            _game.PlayTurn();
 
-            crosses.NextTurn = () => new BoardPosition(2, 3);
-            game.PlayTurn();
+            _naughts.NextTurn = () => new BoardPosition(3, 2);
+            _game.PlayTurn();
 
-            naughts.NextTurn = () => new BoardPosition(3, 2);
-            game.PlayTurn();
+            _crosses.NextTurn = () => new BoardPosition(3, 1);
+            _game.PlayTurn();
 
-            crosses.NextTurn = () => new BoardPosition(3, 1);
-            game.PlayTurn();
+            _naughts.NextTurn = () => new BoardPosition(3, 3);
+            _game.PlayTurn();
 
-            naughts.NextTurn = () => new BoardPosition(3, 3);
-            game.PlayTurn();
-
-            Assert.That(game.IsFinished());
-            Assert.That(game.Winner, Is.EqualTo(null));
+            Assert.That(_game.IsFinished());
+            Assert.That(_game.Winner, Is.EqualTo(null));
         }
 
         [Test]
         public void WhenGameIsOverStopPlaying()
         {
-            var naughts = new PlayerStub();
-            var crosses = new PlayerStub();
-            var game = new TicTacToeGame(naughts, crosses);
+            _naughts.NextTurn = () => new BoardPosition(1, 1);
+            _game.PlayTurn();
 
-            naughts.NextTurn = () => new BoardPosition(1, 1);
-            game.PlayTurn();
+            _crosses.NextTurn = () => new BoardPosition(2, 1);
+            _game.PlayTurn();
 
-            crosses.NextTurn = () => new BoardPosition(2, 1);
-            game.PlayTurn();
+            _naughts.NextTurn = () => new BoardPosition(1, 2);
+            _game.PlayTurn();
 
-            naughts.NextTurn = () => new BoardPosition(1, 2);
-            game.PlayTurn();
+            _crosses.NextTurn = () => new BoardPosition(2, 2);
+            _game.PlayTurn();
 
-            crosses.NextTurn = () => new BoardPosition(2, 2);
-            game.PlayTurn();
+            _naughts.NextTurn = () => new BoardPosition(1, 3);
+            _game.PlayTurn();
 
-            naughts.NextTurn = () => new BoardPosition(1, 3);
-            game.PlayTurn();
-
-            crosses.NextTurn = () => new BoardPosition(2, 3);
-            Assert.Throws<TicTacToeGameOverException>(() => game.PlayTurn());
-            Assert.That(game.IsFinished());
-            Assert.That(game.Winner, Is.EqualTo(naughts));
+            _crosses.NextTurn = () => new BoardPosition(2, 3);
+            Assert.Throws<TicTacToeGameOverException>(() => _game.PlayTurn());
+            Assert.That(_game.IsFinished());
+            Assert.That(_game.Winner, Is.EqualTo(_naughts));
         }
     }
 
     public class PlayerStub : ITicTacToePlayer
     {
+        private readonly string _name;
+
+        public PlayerStub(string name)
+        {
+            _name = name;
+        }
+
         public BoardPosition PlayTurn()
         {
             return NextTurn();
         }
 
         public Func<BoardPosition> NextTurn { get; set; }
+
+        public override string ToString()
+        {
+            return "TicTacToePlayer: " + _name;
+        }
     }
 }
