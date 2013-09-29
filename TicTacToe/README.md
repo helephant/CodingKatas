@@ -1,4 +1,4 @@
- # TicTacToe Kata
+ TicTacToe Kata
 
  This is a simple implementation of the TicTacToe game to practice modeling and TDD. 
  
