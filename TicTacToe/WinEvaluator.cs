@@ -4,6 +4,9 @@ namespace TicTacToe
 {
     internal class WinEvaluator
     {
+        // This won't allow you to change the size of the board,
+        // but I didn't need to support that and it turned out
+        // nice and simple so I went with it. 
         private readonly int[] _wins = new[]
             {
                 // Did this because there is no binary literal 

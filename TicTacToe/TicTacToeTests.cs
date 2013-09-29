@@ -13,6 +13,11 @@ namespace TicTacToe
         [SetUp]
         public void Setup()
         {
+            // I'm not a great fan of test setup because it makes the set up of the tests less explicit.
+            // Working on legacy code has scarred me so I dislike the possibility of side-effects. 
+            // In this case it made sense since they were all exactly the same. 
+            // Could have also used a builder. Would have if I could have thought of a nice declarative way
+            // to build up the board. 
             _naughts = new PlayerStub("Naughts");
             _crosses = new PlayerStub("Crosses");
             _game = new TicTacToeGame(_naughts, _crosses);
@@ -230,6 +235,8 @@ namespace TicTacToe
 
     public class PlayerStub : ITicTacToePlayer
     {
+        // I know I could have used a mocking framework but my requirements were pretty simple.
+        // I think mocking frameworks put a lot of noise and ugly code into your tests.
         private readonly string _name;
 
         public PlayerStub(string name)
