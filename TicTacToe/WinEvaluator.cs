@@ -35,12 +35,12 @@ namespace TicTacToe
         private int GetPositionMaskForPlayer(ITicTacToePlayer currentPlayer, Board board)
         {
             var positionMask = 0;
-            var gridIndex = 1;
+            var gridPosition = 1;
             foreach (var playerOnPosition in board)
             {
                 if (playerOnPosition == currentPlayer)
-                    positionMask |= 1 << (9 - gridIndex);
-                gridIndex++;
+                    positionMask |= 1 << (Board.NumberOfSpacesOnBoard - gridPosition); 
+                gridPosition++;
             }
             return positionMask;
         }

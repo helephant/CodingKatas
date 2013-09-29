@@ -7,6 +7,7 @@ namespace TicTacToe
     {
         private readonly BoardPosition _topLeftBound = new BoardPosition(1, 1);
         private readonly BoardPosition _bottomRightBound = new BoardPosition(3, 3);
+        public const int NumberOfSpacesOnBoard = 9;
 
         private readonly Dictionary<BoardPosition, ITicTacToePlayer> _board = new Dictionary<BoardPosition, ITicTacToePlayer>();
 
@@ -51,7 +52,7 @@ namespace TicTacToe
 
         public bool IsComplete
         {
-            get { return _board.Count >= 9; }
+            get { return _board.Count >= NumberOfSpacesOnBoard; } 
         }
     }
 }

@@ -51,7 +51,7 @@
             get { return _winner != null || _board.IsComplete; }
         }
 
-        public ITicTacToePlayer Winner
+        public ITicTacToePlayer Winner 
         {
             get { return _winner; }
         }
