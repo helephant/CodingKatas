@@ -29,7 +29,7 @@ namespace TicTacToe.Game
 
             // this design isn't perfect because it doesn't feed back to the
             // player if they have made an invalid move
-            var position = _currentPlayer.PlayTurn();
+            var position = _currentPlayer.PlayTurn(_board);
             if(_board[position] == null)
             {
                 _board[position] = _currentPlayer;

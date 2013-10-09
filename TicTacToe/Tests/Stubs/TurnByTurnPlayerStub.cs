@@ -12,7 +12,7 @@ namespace TicTacToe.Tests.Stubs
         {
         }
 
-        public BoardPosition PlayTurn()
+        public BoardPosition PlayTurn(Board board)
         {
             return NextTurn();
         }

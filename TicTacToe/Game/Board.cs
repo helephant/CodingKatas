@@ -4,13 +4,18 @@ using TicTacToe.Players;
 
 namespace TicTacToe.Game
 {
-    internal class Board : IEnumerable<ITicTacToePlayer>
+    public class Board : IEnumerable<ITicTacToePlayer>
     {
         private readonly BoardPosition _topLeftBound = new BoardPosition(1, 1);
         private readonly BoardPosition _bottomRightBound = new BoardPosition(3, 3);
         public const int NumberOfSpacesOnBoard = 9;
 
         private readonly Dictionary<BoardPosition, ITicTacToePlayer> _board = new Dictionary<BoardPosition, ITicTacToePlayer>();
+
+        public bool SquareIsFree(BoardPosition position)
+        {
+            return this[position] == null;
+        }
 
         public ITicTacToePlayer this[BoardPosition position]
         {

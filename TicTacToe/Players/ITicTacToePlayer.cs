@@ -4,6 +4,6 @@ namespace TicTacToe.Players
 {
     public interface ITicTacToePlayer
     {
-        BoardPosition PlayTurn();
+        BoardPosition PlayTurn(Board board);
     }
 }
