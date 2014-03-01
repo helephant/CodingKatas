@@ -4,7 +4,7 @@ namespace TicTacToe.Players
 {
     public class MiniMaxPlayer : ITicTacToePlayer
     {
-        public BoardPosition PlayTurn(Board board)
+        public BoardPosition PlayTurn(TicTacToeBoard board)
         {
             return null;
         }

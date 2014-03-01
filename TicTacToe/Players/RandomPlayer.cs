@@ -1,11 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
 using TicTacToe.Game;
 
 namespace TicTacToe.Players
 {
     public class RandomPlayer : ITicTacToePlayer
     {
-        public BoardPosition PlayTurn(Board board)
+        public BoardPosition PlayTurn(TicTacToeBoard board)
         {
             var random = new Random();
 

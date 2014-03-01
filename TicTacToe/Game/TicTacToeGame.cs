@@ -5,13 +5,13 @@ namespace TicTacToe.Game
     public class TicTacToeGame
     {
         private ITicTacToePlayer _currentPlayer;
-        private readonly Board _board;
+        private readonly TicTacToeBoard _board;
 
         public TicTacToeGame(ITicTacToePlayer naughts, ITicTacToePlayer crosses)
         {
             Naughts = naughts;
             Crosses = crosses;
-            _board = new Board();
+            _board = new TicTacToeBoard();
 
             _currentPlayer = Naughts;
         }

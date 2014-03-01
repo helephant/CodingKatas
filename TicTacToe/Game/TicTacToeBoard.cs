@@ -1,16 +1,32 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using TicTacToe.Players;
 
 namespace TicTacToe.Game
 {
-    public class Board : IEnumerable<ITicTacToePlayer>
+    public class TicTacToeBoard : IEnumerable<ITicTacToePlayer>
     {
         private readonly BoardPosition _topLeftBound = new BoardPosition(1, 1);
         private readonly BoardPosition _bottomRightBound = new BoardPosition(3, 3);
         public const int NumberOfSpacesOnBoard = 9;
 
         private readonly Dictionary<BoardPosition, ITicTacToePlayer> _board = new Dictionary<BoardPosition, ITicTacToePlayer>();
+
+        public TicTacToeBoard()
+        {
+        }
+
+        public TicTacToeBoard(IEnumerable<ITicTacToePlayer> boardState)
+        {
+            var players = boardState.GetEnumerator();
+            var positions = GetBoardPositions(_topLeftBound, _bottomRightBound).GetEnumerator();
+
+            while (players.MoveNext() && positions.MoveNext())
+            {
+                this[positions.Current] = players.Current;
+            }
+        }
 
         public bool SquareIsFree(BoardPosition position)
         {
@@ -38,14 +54,22 @@ namespace TicTacToe.Game
                    position.Row < _topLeftBound.Row || position.Column > _bottomRightBound.Column;
         }
 
+        private IEnumerable<BoardPosition> GetBoardPositions(BoardPosition topRight, BoardPosition bottomLeft)
+        {
+            for (var row = topRight.Row; row <= bottomLeft.Row; row++)
+            {
+                for (var column = topRight.Column; column <= bottomLeft.Column; column++)
+                {
+                    yield return new BoardPosition(row, column);
+                }
+            }
+        }
+
         public IEnumerator<ITicTacToePlayer> GetEnumerator()
         {
-            for (var row = _topLeftBound.Row; row <= _bottomRightBound.Row; row++)
+            foreach (var position in GetBoardPositions(_topLeftBound, _bottomRightBound))
             {
-                for (var column = _topLeftBound.Column; column <= _bottomRightBound.Column; column++)
-                {
-                    yield return this[new BoardPosition(row, column)];
-                }
+                yield return this[position];
             }
         }
 

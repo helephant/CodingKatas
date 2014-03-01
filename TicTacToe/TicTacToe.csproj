@@ -41,6 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ConsoleApp\GameBoardPrinter.cs" />
+    <Compile Include="Game\WinningLinesGenerator.cs" />
     <Compile Include="Players\MiniMaxPlayer.cs" />
     <Compile Include="Tests\GameBoardPrinterTests.cs" />
     <Compile Include="ConsoleApp\TicTacToeConsole.cs" />
@@ -54,7 +55,7 @@
     <Compile Include="Game\WinEvaluator.cs" />
     <Compile Include="Game\BoardPosition.cs" />
     <Compile Include="Players\ITicTacToePlayer.cs" />
-    <Compile Include="Game\Board.cs" />
+    <Compile Include="Game\TicTacToeBoard.cs" />
     <Compile Include="Game\TicTacToeGame.cs" />
     <Compile Include="Game\GameOverException.cs" />
     <Compile Include="Tests\TicTacToeGamePlayTests.cs" />

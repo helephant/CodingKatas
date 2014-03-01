@@ -15,7 +15,7 @@ namespace TicTacToe.Tests.Stubs
             _moves = positions.GetEnumerator();
         }
 
-        public BoardPosition PlayTurn(Board board)
+        public BoardPosition PlayTurn(TicTacToeBoard boardStatus)
         {
             _moves.MoveNext();
             return _moves.Current;

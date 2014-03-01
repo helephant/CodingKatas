@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using TicTacToe.Game;
 using TicTacToe.Players;
 
@@ -8,11 +9,8 @@ namespace TicTacToe.Tests.Stubs
     {
         // I know I could have used a mocking framework but my requirements were pretty simple.
         // I think mocking frameworks put a lot of noise and ugly code into your tests.
-        public TurnByTurnPlayerStub()
-        {
-        }
 
-        public BoardPosition PlayTurn(Board board)
+        public BoardPosition PlayTurn(TicTacToeBoard board)
         {
             return NextTurn();
         }

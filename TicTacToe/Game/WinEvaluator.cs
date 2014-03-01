@@ -22,9 +22,9 @@ namespace TicTacToe.Game
                 Convert.ToInt32("001010100",2)
             };
 
-        public bool HasPlayerWon(ITicTacToePlayer currentPlayer, Board board)
+        public bool HasPlayerWon(ITicTacToePlayer currentPlayer, TicTacToeBoard ticTacToeBoard)
         {
-            var playerMask = GetPositionMaskForPlayer(currentPlayer, board);
+            var playerMask = GetPositionMaskForPlayer(currentPlayer, ticTacToeBoard);
             foreach (var win in _wins)
             {
                 if ((win & playerMask) == win)
@@ -33,14 +33,14 @@ namespace TicTacToe.Game
             return false;
         }
 
-        private int GetPositionMaskForPlayer(ITicTacToePlayer currentPlayer, Board board)
+        private int GetPositionMaskForPlayer(ITicTacToePlayer currentPlayer, TicTacToeBoard ticTacToeBoard)
         {
             var positionMask = 0;
             var gridPosition = 1;
-            foreach (var playerOnPosition in board)
+            foreach (var playerOnPosition in ticTacToeBoard)
             {
                 if (playerOnPosition == currentPlayer)
-                    positionMask |= 1 << (Board.NumberOfSpacesOnBoard - gridPosition); 
+                    positionMask |= 1 << (TicTacToeBoard.NumberOfSpacesOnBoard - gridPosition); 
                 gridPosition++;
             }
             return positionMask;
