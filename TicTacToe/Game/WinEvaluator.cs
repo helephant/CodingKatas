@@ -24,6 +24,8 @@ namespace TicTacToe.Game
 
         public bool HasPlayerWon(ITicTacToePlayer currentPlayer, TicTacToeBoard ticTacToeBoard)
         {
+            //var winningLines = new WinningLinesGenerator(ticTacToeBoard.)
+
             var playerMask = GetPositionMaskForPlayer(currentPlayer, ticTacToeBoard);
             foreach (var win in _wins)
             {
@@ -40,7 +42,7 @@ namespace TicTacToe.Game
             foreach (var playerOnPosition in ticTacToeBoard)
             {
                 if (playerOnPosition == currentPlayer)
-                    positionMask |= 1 << (TicTacToeBoard.NumberOfSpacesOnBoard - gridPosition); 
+                    positionMask |= 1 << (ticTacToeBoard.Boundries.TotalNumberOfSquares - gridPosition); 
                 gridPosition++;
             }
             return positionMask;

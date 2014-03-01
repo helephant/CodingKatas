@@ -1,15 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using TicTacToe.Players;
 
 namespace TicTacToe.Game
 {
     public class TicTacToeBoard : IEnumerable<ITicTacToePlayer>
     {
-        private readonly BoardPosition _topLeftBound = new BoardPosition(1, 1);
-        private readonly BoardPosition _bottomRightBound = new BoardPosition(3, 3);
-        public const int NumberOfSpacesOnBoard = 9;
+        private readonly BoardBoundaries _boundries = new BoardBoundaries(new BoardPosition(1, 1), new BoardPosition(3, 3));
 
         private readonly Dictionary<BoardPosition, ITicTacToePlayer> _board = new Dictionary<BoardPosition, ITicTacToePlayer>();
 
@@ -20,7 +17,7 @@ namespace TicTacToe.Game
         public TicTacToeBoard(IEnumerable<ITicTacToePlayer> boardState)
         {
             var players = boardState.GetEnumerator();
-            var positions = GetBoardPositions(_topLeftBound, _bottomRightBound).GetEnumerator();
+            var positions = GetBoardPositions(Boundries.TopLeft, Boundries.BottomRight).GetEnumerator();
 
             while (players.MoveNext() && positions.MoveNext())
             {
@@ -41,18 +38,13 @@ namespace TicTacToe.Game
             }
             set
             {
-                if (IsInsideBounds(position))
+                if (Boundries.IsInside(position))
                     throw new InvalidMoveException(position);
 
                 _board.Add(position, value);
             }
         }
 
-        private bool IsInsideBounds(BoardPosition position)
-        {
-            return position.Column < _topLeftBound.Column || position.Column > _bottomRightBound.Column ||
-                   position.Row < _topLeftBound.Row || position.Column > _bottomRightBound.Column;
-        }
 
         private IEnumerable<BoardPosition> GetBoardPositions(BoardPosition topRight, BoardPosition bottomLeft)
         {
@@ -67,7 +59,7 @@ namespace TicTacToe.Game
 
         public IEnumerator<ITicTacToePlayer> GetEnumerator()
         {
-            foreach (var position in GetBoardPositions(_topLeftBound, _bottomRightBound))
+            foreach (var position in GetBoardPositions(Boundries.TopLeft, Boundries.BottomRight))
             {
                 yield return this[position];
             }
@@ -82,7 +74,12 @@ namespace TicTacToe.Game
 
         public bool IsComplete
         {
-            get { return _board.Count >= NumberOfSpacesOnBoard; } 
+            get { return _board.Count >= Boundries.TotalNumberOfSquares; } 
+        }
+
+        public BoardBoundaries Boundries
+        {
+            get { return _boundries; }
         }
     }
 }

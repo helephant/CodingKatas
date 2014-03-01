@@ -41,6 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ConsoleApp\GameBoardPrinter.cs" />
+    <Compile Include="Game\BoardBoundaries.cs" />
     <Compile Include="Game\WinningLinesGenerator.cs" />
     <Compile Include="Players\MiniMaxPlayer.cs" />
     <Compile Include="Tests\GameBoardPrinterTests.cs" />

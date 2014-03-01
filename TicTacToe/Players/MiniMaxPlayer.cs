@@ -6,6 +6,7 @@ namespace TicTacToe.Players
     {
         public BoardPosition PlayTurn(TicTacToeBoard board)
         {
+            // figure out the best turn for this player
             return null;
         }
     }
