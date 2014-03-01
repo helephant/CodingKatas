@@ -6,8 +6,7 @@ namespace TicTacToe.Game
 {
     public class WinningLinesGenerator
     {
-        private readonly BoardPosition _topLeft;
-        private readonly BoardPosition _bottomRight;
+        private readonly BoardBoundaries _boundaries;
         private readonly IEnumerable<ITicTacToePlayer> _boardStatus;
 
         private readonly List<Predicate<BoardPosition>> _lineEquation = new List<Predicate<BoardPosition>> 
@@ -22,10 +21,9 @@ namespace TicTacToe.Game
                 x => x.Row == 4 - x.Column // right diagonal
             };
 
-        public WinningLinesGenerator(BoardPosition topLeft, BoardPosition bottomRight, IEnumerable<ITicTacToePlayer> boardStatus)
+        public WinningLinesGenerator(BoardBoundaries boundaries, IEnumerable<ITicTacToePlayer> boardStatus)
         {
-            _topLeft = topLeft;
-            _bottomRight = bottomRight;
+            _boundaries = boundaries;
             _boardStatus = boardStatus;
         }
 
@@ -40,9 +38,9 @@ namespace TicTacToe.Game
         private IEnumerable<ITicTacToePlayer> GenerateLine(Predicate<BoardPosition> equation)
         {
             var e = _boardStatus.GetEnumerator();
-            for (var row = _topLeft.Row; row <= _bottomRight.Row; row++)
+            for (var row = _boundaries.TopLeft.Row; row <= _boundaries.BottomRight.Row; row++)
             {
-                for (var column = _topLeft.Column; column <= _bottomRight.Column; column++)
+                for (var column = _boundaries.TopLeft.Column; column <= _boundaries.BottomRight.Column; column++)
                 {
                     var position = new BoardPosition(row, column);
                     e.MoveNext();

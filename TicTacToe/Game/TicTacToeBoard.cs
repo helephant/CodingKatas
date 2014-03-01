@@ -6,8 +6,7 @@ namespace TicTacToe.Game
 {
     public class TicTacToeBoard : IEnumerable<ITicTacToePlayer>
     {
-        private readonly BoardBoundaries _boundries = new BoardBoundaries(new BoardPosition(1, 1), new BoardPosition(3, 3));
-
+        private readonly BoardBoundaries _boundries = new BoardBoundaries(new BoardPosition(3, 3));
         private readonly Dictionary<BoardPosition, ITicTacToePlayer> _board = new Dictionary<BoardPosition, ITicTacToePlayer>();
 
         public TicTacToeBoard()
@@ -17,7 +16,7 @@ namespace TicTacToe.Game
         public TicTacToeBoard(IEnumerable<ITicTacToePlayer> boardState)
         {
             var players = boardState.GetEnumerator();
-            var positions = GetBoardPositions(Boundries.TopLeft, Boundries.BottomRight).GetEnumerator();
+            var positions = _boundries.GetSquares().GetEnumerator();
 
             while (players.MoveNext() && positions.MoveNext())
             {
@@ -45,21 +44,9 @@ namespace TicTacToe.Game
             }
         }
 
-
-        private IEnumerable<BoardPosition> GetBoardPositions(BoardPosition topRight, BoardPosition bottomLeft)
-        {
-            for (var row = topRight.Row; row <= bottomLeft.Row; row++)
-            {
-                for (var column = topRight.Column; column <= bottomLeft.Column; column++)
-                {
-                    yield return new BoardPosition(row, column);
-                }
-            }
-        }
-
         public IEnumerator<ITicTacToePlayer> GetEnumerator()
         {
-            foreach (var position in GetBoardPositions(Boundries.TopLeft, Boundries.BottomRight))
+            foreach (var position in _boundries.GetSquares())
             {
                 yield return this[position];
             }
@@ -72,14 +59,14 @@ namespace TicTacToe.Game
         }
         #endregion
 
-        public bool IsComplete
-        {
-            get { return _board.Count >= Boundries.TotalNumberOfSquares; } 
-        }
-
         public BoardBoundaries Boundries
         {
             get { return _boundries; }
+        }
+
+        public bool IsComplete
+        {
+            get { return _board.Count >= Boundries.TotalNumberOfSquares; } 
         }
     }
 }
