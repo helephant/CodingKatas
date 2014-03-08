@@ -5,7 +5,7 @@ namespace TicTacToe.Game
     public class TicTacToeGame
     {
         private ITicTacToePlayer _currentPlayer;
-        private readonly TicTacToeBoard _board;
+        private TicTacToeBoard _board;
 
         public TicTacToeGame(ITicTacToePlayer naughts, ITicTacToePlayer crosses)
         {
@@ -32,7 +32,7 @@ namespace TicTacToe.Game
             var position = _currentPlayer.PlayTurn(_board);
             if(_board[position] == null)
             {
-                _board[position] = _currentPlayer;
+                _board = _board.UpdateBoard(position, _currentPlayer);
                 if (HasMadeWinningMove(_currentPlayer))
                     Winner = _currentPlayer;
 

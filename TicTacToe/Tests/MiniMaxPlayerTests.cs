@@ -21,5 +21,21 @@ namespace TicTacToe.Tests
             var position = naughts.PlayTurn(board);
             Assert.That(position, Is.EqualTo(new BoardPosition(1, 2)));
         }
+
+        [Test]
+        public void CanBlockOpponentsWinningMove()
+        {
+            var naughts = new MiniMaxPlayer();
+            var crosses = new MiniMaxPlayer();
+            var board = new TicTacToeBoard(new[]
+                {
+                    naughts, null, null,
+                    crosses, crosses, null,
+                    naughts
+                });
+
+            var position = naughts.PlayTurn(board);
+            Assert.That(position, Is.EqualTo(new BoardPosition(2, 3)));
+        }
     }
 }

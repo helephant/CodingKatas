@@ -16,8 +16,8 @@ namespace TicTacToe.Game
 
         public bool IsInside(BoardPosition position)
         {
-            return position.Column < TopLeft.Column || position.Column > BottomRight.Column ||
-                   position.Row < TopLeft.Row || position.Column > BottomRight.Column;
+            return position.Column >= TopLeft.Column && position.Column <= BottomRight.Column &&
+                   position.Row >= TopLeft.Row && position.Column <= BottomRight.Column;
         }
 
         public IEnumerable<BoardPosition> GetSquares()

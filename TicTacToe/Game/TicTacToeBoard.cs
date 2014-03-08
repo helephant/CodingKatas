@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using TicTacToe.Players;
 
 namespace TicTacToe.Game
@@ -7,7 +8,7 @@ namespace TicTacToe.Game
     public class TicTacToeBoard : IEnumerable<ITicTacToePlayer>
     {
         private readonly BoardBoundaries _boundries = new BoardBoundaries(new BoardPosition(3, 3));
-        private readonly Dictionary<BoardPosition, ITicTacToePlayer> _board = new Dictionary<BoardPosition, ITicTacToePlayer>();
+        private readonly IDictionary<BoardPosition, ITicTacToePlayer> _board = new Dictionary<BoardPosition, ITicTacToePlayer>();
 
         public TicTacToeBoard()
         {
@@ -20,9 +21,22 @@ namespace TicTacToe.Game
 
             while (players.MoveNext() && positions.MoveNext())
             {
-                this[positions.Current] = players.Current;
+                if(players.Current != null)
+                    _board[positions.Current] = players.Current;
             }
         }
+
+        public IEnumerable<BoardPosition> VacantSquares
+        {
+            get
+            {
+                foreach (var square in _boundries.GetSquares())
+                {
+                    if (!_board.ContainsKey(square))
+                        yield return square;
+                }
+            }
+        } 
 
         public bool SquareIsFree(BoardPosition position)
         {
@@ -35,13 +49,26 @@ namespace TicTacToe.Game
             {
                 return _board.ContainsKey(position) ? _board[position] : null;
             }
-            set
-            {
-                if (Boundries.IsInside(position))
-                    throw new InvalidMoveException(position);
+        }
 
-                _board.Add(position, value);
+        public TicTacToeBoard UpdateBoard(BoardPosition position, ITicTacToePlayer player)
+        {
+            // TODO: check whether the square is free
+            if (!Boundries.IsInside(position))
+                throw new InvalidMoveException(position);
+
+            var boardState = new List<ITicTacToePlayer>();
+            foreach (var square in _boundries.GetSquares())
+            {
+                if(square == position)
+                    boardState.Add(player);
+                else if(_board.ContainsKey(square))
+                    boardState.Add(_board[square]);
+                else
+                    boardState.Add(null);
             }
+
+            return new TicTacToeBoard(boardState);
         }
 
         public IEnumerator<ITicTacToePlayer> GetEnumerator()

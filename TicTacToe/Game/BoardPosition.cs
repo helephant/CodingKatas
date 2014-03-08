@@ -4,6 +4,8 @@ namespace TicTacToe.Game
 {
     public class BoardPosition : IEquatable<BoardPosition>
     {
+
+
         public int Row { get; set; }
         public int Column { get; set; }
 
@@ -14,6 +16,16 @@ namespace TicTacToe.Game
         }
 
         #region equality 
+        public static bool operator ==(BoardPosition left, BoardPosition right)
+        {
+            return Equals(left, right);
+        }
+
+        public static bool operator !=(BoardPosition left, BoardPosition right)
+        {
+            return !Equals(left, right);
+        }
+
         public bool Equals(BoardPosition other)
         {
             if (ReferenceEquals(null, other)) return false;
@@ -25,7 +37,7 @@ namespace TicTacToe.Game
         {
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
-            if (obj.GetType() != GetType()) return false;
+            if (obj.GetType() != this.GetType()) return false;
             return Equals((BoardPosition) obj);
         }
 
