@@ -1,6 +1,7 @@
 ﻿using NUnit.Framework;
 using TicTacToe.Game;
 using TicTacToe.Players;
+using TicTacToe.Tests.Stubs;
 
 namespace TicTacToe.Tests
 {
@@ -8,33 +9,34 @@ namespace TicTacToe.Tests
     public class MiniMaxPlayerTests
     {
         [Test]
-        public void CanMakeWinningMove()
+        public void MakeWinningMove()
         {
-            var naughts = new MiniMaxPlayer();
-            var crosses = new MiniMaxPlayer();
-            var board = new TicTacToeBoard(new []
+            var naughts = new TurnByTurnPlayerStub();
+            var crosses = new MiniMaxPlayer(naughts);
+            var board = new TicTacToeBoard(new ITicTacToePlayer[]
                 {
-                    naughts, null, naughts,
-                    crosses, crosses, null
+                    naughts, null, crosses,
+                    null, naughts, null,
+                    naughts, null, crosses
                 });
 
-            var position = naughts.PlayTurn(board);
-            Assert.That(position, Is.EqualTo(new BoardPosition(1, 2)));
+            var position = crosses.PlayTurn(board);
+            Assert.That(position, Is.EqualTo(new BoardPosition(2, 3)));
         }
 
         [Test]
-        public void CanBlockOpponentsWinningMove()
+        public void BlockOpponentsWinningMove()
         {
-            var naughts = new MiniMaxPlayer();
-            var crosses = new MiniMaxPlayer();
-            var board = new TicTacToeBoard(new[]
+            var naughts = new TurnByTurnPlayerStub();
+            var crosses = new MiniMaxPlayer(naughts);
+            var board = new TicTacToeBoard(new ITicTacToePlayer[]
                 {
-                    naughts, null, null,
-                    crosses, crosses, null,
-                    naughts
+                    crosses, null, null,
+                    naughts, naughts, null,
+                    null, null, null
                 });
 
-            var position = naughts.PlayTurn(board);
+            var position = crosses.PlayTurn(board);
             Assert.That(position, Is.EqualTo(new BoardPosition(2, 3)));
         }
     }

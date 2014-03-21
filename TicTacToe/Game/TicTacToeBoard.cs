@@ -38,6 +38,11 @@ namespace TicTacToe.Game
             }
         } 
 
+        public IEnumerable<IEnumerable<ITicTacToePlayer>> PossibleWins
+        {
+            get { return new WinningLinesGenerator(_boundries, this).PossibleWins(); }
+        }
+
         public bool SquareIsFree(BoardPosition position)
         {
             return this[position] == null;

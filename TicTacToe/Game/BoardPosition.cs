@@ -4,8 +4,6 @@ namespace TicTacToe.Game
 {
     public class BoardPosition : IEquatable<BoardPosition>
     {
-
-
         public int Row { get; set; }
         public int Column { get; set; }
 
@@ -49,5 +47,10 @@ namespace TicTacToe.Game
             }
         }
         #endregion
+
+        public override string ToString()
+        {
+            return string.Format("({0},{1})", Row, Column);
+        }
     }
 }
