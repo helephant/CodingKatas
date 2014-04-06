@@ -1,4 +1,5 @@
-﻿using TicTacToe.Players;
+﻿using TicTacToe.Game.WinEvaluators;
+using TicTacToe.Players;
 
 namespace TicTacToe.Game
 {
@@ -47,7 +48,7 @@ namespace TicTacToe.Game
 
         private bool HasMadeWinningMove(ITicTacToePlayer player)
         {
-            var winEvaluator = new WinEvaluator();
+            var winEvaluator = new EquationWinEvaluator();
             return winEvaluator.HasPlayerWon(player, _board);
         }
 

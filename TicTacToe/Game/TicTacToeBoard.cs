@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using TicTacToe.Game.WinEvaluators;
 using TicTacToe.Players;
 
 namespace TicTacToe.Game

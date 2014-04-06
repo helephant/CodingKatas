@@ -1,11 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using TicTacToe.Players;
 
-namespace TicTacToe.Game
+namespace TicTacToe.Game.WinEvaluators
 {
-    internal class WinEvaluator
+    internal class EquationWinEvaluator : IWinEvaluator
     {
         public bool HasPlayerWon(ITicTacToePlayer currentPlayer, TicTacToeBoard ticTacToeBoard)
         {

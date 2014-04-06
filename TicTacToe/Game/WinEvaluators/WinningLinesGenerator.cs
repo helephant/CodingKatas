@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using TicTacToe.Players;
 
-namespace TicTacToe.Game
+namespace TicTacToe.Game.WinEvaluators
 {
     public class WinningLinesGenerator
     {

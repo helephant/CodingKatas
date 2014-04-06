@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using TicTacToe.Game;
+using TicTacToe.Game.WinEvaluators;
 
 namespace TicTacToe.Players
 {
@@ -63,7 +64,7 @@ namespace TicTacToe.Players
 
         private bool IsFinalMove(TicTacToeBoard board, ITicTacToePlayer currentPlayer, ITicTacToePlayer otherPlayer)
         {
-            return board.IsComplete || (new WinEvaluator()).HasPlayerWon(currentPlayer, board);
+            return board.IsComplete || (new EquationWinEvaluator()).HasPlayerWon(currentPlayer, board);
         }
 
         private int EvaluateMove(TicTacToeBoard board, ITicTacToePlayer currentPlayer, ITicTacToePlayer otherPlayer)
@@ -72,7 +73,7 @@ namespace TicTacToe.Players
             const int draw = 0;
             const int loss = -1;
 
-            if ((new WinEvaluator()).HasPlayerWon(currentPlayer, board))
+            if ((new EquationWinEvaluator()).HasPlayerWon(currentPlayer, board))
                 return currentPlayer == this ? win : loss; 
 
             return draw; 

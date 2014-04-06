@@ -44,8 +44,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ConsoleApp\GameBoardPrinter.cs" />
+    <Compile Include="Game\WinEvaluators\BitMaskWinEvaluator.cs" />
     <Compile Include="Game\BoardBoundaries.cs" />
-    <Compile Include="Game\WinningLinesGenerator.cs" />
+    <Compile Include="Game\WinEvaluators\IWinEvaluator.cs" />
+    <Compile Include="Game\WinEvaluators\WinningLinesGenerator.cs" />
     <Compile Include="Players\MiniMaxPlayer.cs" />
     <Compile Include="Tests\GameBoardPrinterTests.cs" />
     <Compile Include="ConsoleApp\TicTacToeConsole.cs" />
@@ -56,7 +58,7 @@
     <Compile Include="Tests\TicTacToeWinScenarioTests.cs" />
     <Compile Include="Tests\Stubs\TurnByTurnPlayerStub.cs" />
     <Compile Include="Players\RandomPlayer.cs" />
-    <Compile Include="Game\WinEvaluator.cs" />
+    <Compile Include="Game\WinEvaluators\EquationWinEvaluator.cs" />
     <Compile Include="Game\BoardPosition.cs" />
     <Compile Include="Players\ITicTacToePlayer.cs" />
     <Compile Include="Game\TicTacToeBoard.cs" />
