@@ -5,7 +5,6 @@ namespace TicTacToe.Game
 {
     public class TicTacToeGame
     {
-        private ITicTacToePlayer _currentPlayer;
         private TicTacToeBoard _board;
 
         public TicTacToeGame(ITicTacToePlayer naughts, ITicTacToePlayer crosses)
@@ -14,7 +13,7 @@ namespace TicTacToe.Game
             Crosses = crosses;
             _board = new TicTacToeBoard();
 
-            _currentPlayer = Naughts;
+            CurrentPlayer = Naughts;
         }
 
         public void Play()
@@ -30,14 +29,14 @@ namespace TicTacToe.Game
 
             // this design isn't perfect because it doesn't feed back to the
             // player if they have made an invalid move
-            var position = _currentPlayer.PlayTurn(_board);
+            var position = CurrentPlayer.PlayTurn(_board);
             if(_board[position] == null)
             {
-                _board = _board.UpdateBoard(position, _currentPlayer);
-                if (HasMadeWinningMove(_currentPlayer))
-                    Winner = _currentPlayer;
+                _board = _board.UpdateBoard(position, CurrentPlayer);
+                if (HasMadeWinningMove(CurrentPlayer))
+                    Winner = CurrentPlayer;
 
-                _currentPlayer = _currentPlayer == Naughts ? Crosses : Naughts;
+                CurrentPlayer = CurrentPlayer == Naughts ? Crosses : Naughts;
             }
         }
 
@@ -62,5 +61,7 @@ namespace TicTacToe.Game
         public ITicTacToePlayer Crosses { get; set; }
 
         public ITicTacToePlayer Winner { get; private set; }
+
+        public ITicTacToePlayer CurrentPlayer { get; private set; }
     }
 }

@@ -44,16 +44,19 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ConsoleApp\GameBoardPrinter.cs" />
+    <Compile Include="ConsoleApp\IConsoleInput.cs" />
     <Compile Include="Game\WinEvaluators\BitMaskWinEvaluator.cs" />
     <Compile Include="Game\BoardBoundaries.cs" />
     <Compile Include="Game\WinEvaluators\IWinEvaluator.cs" />
     <Compile Include="Game\WinEvaluators\WinningLinesGenerator.cs" />
+    <Compile Include="Players\ConsolePlayer.cs" />
     <Compile Include="Players\MiniMaxPlayer.cs" />
+    <Compile Include="Tests\MiniMaxPlayerTests.cs" />
+    <Compile Include="Tests\ConsolePlayerTests.cs" />
     <Compile Include="Tests\GameBoardPrinterTests.cs" />
     <Compile Include="ConsoleApp\TicTacToeConsole.cs" />
     <Compile Include="Game\InvalidMoveException.cs" />
     <Compile Include="Tests\MiniMaxPlayAllGamesTests.cs" />
-    <Compile Include="Tests\MiniMaxPlayerTests.cs" />
     <Compile Include="Tests\Stubs\GameBuilder.cs" />
     <Compile Include="Tests\Stubs\PrepopulatedPlayerStub.cs" />
     <Compile Include="Tests\TicTacToeWinScenarioTests.cs" />

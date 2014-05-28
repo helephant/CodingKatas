@@ -6,6 +6,9 @@ using TicTacToe.Game.WinEvaluators;
 
 namespace TicTacToe.Players
 {
+    /// <summary>
+    /// This minimax-player doesn't not give preference faster wins.
+    /// </summary>
     public class MiniMaxPlayer : ITicTacToePlayer
     {
         private readonly ITicTacToePlayer _opponent;
@@ -39,8 +42,6 @@ namespace TicTacToe.Players
             }
             return scores.OrderByDescending(x => x.Item2).First();
         }
-
- 
 
         private Tuple<BoardPosition, int> MinimizeScore(TicTacToeBoard board)
         {
@@ -78,9 +79,6 @@ namespace TicTacToe.Players
 
             return draw; 
         }
-
-
-
 
     }
 }

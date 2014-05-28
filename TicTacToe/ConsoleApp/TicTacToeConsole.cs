@@ -8,17 +8,20 @@ namespace TicTacToe.ConsoleApp
     {
         public static void Main(string[] args)
         {
-            var naughts = new RandomPlayer();
-            var crosses = new RandomPlayer();
+            var naughts = new ConsolePlayer(new ConsoleInput());
+            var crosses = new MiniMaxPlayer(naughts);
             var game = new TicTacToeGame(naughts, crosses);
 
             var printer = new GameBoardPrinter(game);
+            Console.WriteLine("Welcome to Helen's TicTacToe game!");
+            Console.WriteLine(printer.Board());
+
             while (!game.IsFinished)
             {
+                Console.WriteLine("It's " + printer.NameForPlayer(game.CurrentPlayer) + "'s turn!");
                 game.PlayTurn();
 
                 Console.WriteLine(printer.Board());
-                Console.ReadLine();
             }
 
             Console.WriteLine("Game over!");

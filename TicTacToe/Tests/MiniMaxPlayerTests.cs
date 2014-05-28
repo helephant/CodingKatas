@@ -12,13 +12,13 @@ namespace TicTacToe.Tests
         public void MakeWinningMove()
         {
             var naughts = new TurnByTurnPlayerStub();
-            var crosses = new MiniMaxPlayer(naughts);
+            var crosses = new MiniMaxPlayer(naughts); 
             var board = new TicTacToeBoard(new ITicTacToePlayer[]
-                {
-                    naughts, null, crosses,
-                    null, naughts, null,
-                    naughts, null, crosses
-                });
+            {
+                naughts, null, crosses,
+                null, naughts, null,
+                naughts, null, crosses
+            });
 
             var position = crosses.PlayTurn(board);
             Assert.That(position, Is.EqualTo(new BoardPosition(2, 3)));
@@ -28,18 +28,16 @@ namespace TicTacToe.Tests
         public void BlockOpponentsWinningMove()
         {
             var naughts = new TurnByTurnPlayerStub();
-            var crosses = new MiniMaxPlayer(naughts);
+            var crosses = new MiniMaxPlayer(naughts); 
             var board = new TicTacToeBoard(new ITicTacToePlayer[]
-                {
-                    crosses, null, null,
-                    naughts, naughts, null,
-                    null, null, null
-                });
+            {
+                crosses, null, null,
+                naughts, naughts, null,
+                null, null, null
+            });
 
             var position = crosses.PlayTurn(board);
             Assert.That(position, Is.EqualTo(new BoardPosition(2, 3)));
         }
-
-        
     }
 }
