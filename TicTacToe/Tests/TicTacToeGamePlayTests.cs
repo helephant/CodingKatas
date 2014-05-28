@@ -29,10 +29,7 @@ namespace TicTacToe.Tests
             naughts.Next(1, 1);
             game.PlayTurn();
 
-            crosses.Next(2, 2);
-            game.PlayTurn();
-
-            Assert.That(game.PlayerOnSquare(2, 2), Is.EqualTo(crosses));
+            Assert.That(game.CurrentPlayer, Is.EqualTo(crosses));
         }
 
         [Test]
@@ -86,11 +83,7 @@ namespace TicTacToe.Tests
             crosses.Next(1, 1);
             game.PlayTurn();
 
-            crosses.Next(2, 2);
-            game.PlayTurn();
-
-            Assert.That(game.PlayerOnSquare(1, 1), Is.EqualTo(naughts));
-            Assert.That(game.PlayerOnSquare(2, 2), Is.EqualTo(crosses));
+            Assert.That(game.CurrentPlayer, Is.EqualTo(crosses));
         }
 
         [Test]
