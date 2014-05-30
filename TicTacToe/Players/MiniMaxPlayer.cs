@@ -7,10 +7,14 @@ using TicTacToe.Game.WinEvaluators;
 namespace TicTacToe.Players
 {
     /// <summary>
-    /// This minimax-player doesn't not give preference faster wins.
+    /// Plays tictactoe using the MiniMax algorithm which brute-force searches all of the
+    /// possible moves to find the best move. 
     /// </summary>
     public class MiniMaxPlayer : ITicTacToePlayer
     {
+        private const int Win = 1;
+        private const int Draw = 0;
+        private const int Loss = -1;
         private readonly ITicTacToePlayer _opponent;
 
         public MiniMaxPlayer(ITicTacToePlayer opponent)
@@ -30,15 +34,14 @@ namespace TicTacToe.Players
             {
                 var nextBoard = board.UpdateBoard(boardPosition, this);
 
-                if (IsFinalMove(nextBoard, this, _opponent))
-                {
-                    var score = EvaluateMove(nextBoard, this, _opponent);
-                    scores.Add(new Tuple<BoardPosition, int>(boardPosition, score));
-                }
-                else
-                {
-                    scores.Add(new Tuple<BoardPosition, int>(boardPosition, MinimizeScore(nextBoard).Item2));
-                }
+                var score = IsFinalMove(nextBoard, this, _opponent)
+                    ? EvaluateMove(nextBoard, this, _opponent)
+                    : MinimizeScore(nextBoard).Item2;
+
+                if (ShouldAlphaBetaPrune(score, Win))
+                    return new Tuple<BoardPosition, int>(boardPosition, score);
+
+                scores.Add(new Tuple<BoardPosition, int>(boardPosition, score));
             }
             return scores.OrderByDescending(x => x.Item2).First();
         }
@@ -50,15 +53,15 @@ namespace TicTacToe.Players
             {
                 var nextBoard = board.UpdateBoard(boardPosition, _opponent);
 
-                if (IsFinalMove(nextBoard, _opponent, this))
-                {
-                    var score = EvaluateMove(nextBoard, _opponent, this);
-                    scores.Add(new Tuple<BoardPosition, int>(boardPosition, score));
-                }
-                else
-                {
-                    scores.Add(new Tuple<BoardPosition, int>(boardPosition, MaximizeScore(nextBoard).Item2));
-                }
+                var score = IsFinalMove(nextBoard, _opponent, this) ? 
+                    EvaluateMove(nextBoard, _opponent, this) :
+                    MaximizeScore(nextBoard).Item2;
+                var scoreForPosition = new Tuple<BoardPosition, int>(boardPosition, score);
+
+                if (ShouldAlphaBetaPrune(score, Loss))
+                    return scoreForPosition;
+
+                scores.Add(scoreForPosition);
             }
             return scores.OrderBy(x => x.Item2).First();
         }
@@ -68,16 +71,19 @@ namespace TicTacToe.Players
             return board.IsComplete || (new EquationWinEvaluator()).HasPlayerWon(currentPlayer, board);
         }
 
+        private bool ShouldAlphaBetaPrune(int score, int idealScore)
+        {
+            // Alpha-beta pruning means if we have found the maximum or minimum score already
+            // we don't need to keep looking through the board for a better score
+            return score == idealScore;
+        }
+
         private int EvaluateMove(TicTacToeBoard board, ITicTacToePlayer currentPlayer, ITicTacToePlayer otherPlayer)
         {
-            const int win = 1;
-            const int draw = 0;
-            const int loss = -1;
-
             if ((new EquationWinEvaluator()).HasPlayerWon(currentPlayer, board))
-                return currentPlayer == this ? win : loss; 
+                return currentPlayer == this ? Win : Loss; 
 
-            return draw; 
+            return Draw; 
         }
 
     }
