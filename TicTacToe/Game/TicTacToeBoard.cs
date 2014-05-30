@@ -39,11 +39,6 @@ namespace TicTacToe.Game
             }
         } 
 
-        public IEnumerable<IEnumerable<ITicTacToePlayer>> PossibleWins
-        {
-            get { return new WinningLinesGenerator(_boundries, this).PossibleWins(); }
-        }
-
         public bool SquareIsFree(BoardPosition position)
         {
             return this[position] == null;
@@ -59,7 +54,6 @@ namespace TicTacToe.Game
 
         public TicTacToeBoard UpdateBoard(BoardPosition position, ITicTacToePlayer player)
         {
-            // TODO: check whether the square is free
             if (!Boundries.IsInside(position))
                 throw new InvalidMoveException(position);
 

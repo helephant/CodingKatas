@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using TicTacToe.Game;
+﻿using TicTacToe.Game;
 
 namespace TicTacToe.Players
 {
