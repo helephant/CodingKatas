@@ -39,5 +39,38 @@ namespace TicTacToe.Tests
             var position = crosses.PlayTurn(board);
             Assert.That(position, Is.EqualTo(new BoardPosition(2, 3)));
         }
+
+        [Test]
+        public void FindBestStartingMove()
+        {
+            var naughts = new TurnByTurnPlayerStub();
+            var crosses = new MiniMaxPlayer(naughts);
+            var board = new TicTacToeBoard(new ITicTacToePlayer[]
+            {
+                null, null, null,
+                null, null, null,
+                null, null, null
+            });
+
+            var position = crosses.PlayTurn(board);
+            Assert.That(position, Is.EqualTo(new BoardPosition(1, 1)));
+        }
+
+        [Test]
+        public void FindBestSecondMove()
+        {
+            var naughts = new TurnByTurnPlayerStub();
+            var crosses = new MiniMaxPlayer(naughts);
+            var board = new TicTacToeBoard(new ITicTacToePlayer[]
+            {
+                naughts, null, null,
+                null, null, null,
+                null, null, null
+            });
+
+            var position = crosses.PlayTurn(board);
+            Assert.That(position, Is.EqualTo(new BoardPosition(2, 2)));
+        }
+
     }
 }
